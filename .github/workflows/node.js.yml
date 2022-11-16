@@ -19,6 +19,7 @@ jobs:
                   version: 7
                   run_install: true
             - run: pnpm run build
+
         eslint:
             runs-on: ubuntu-latest
             steps:
@@ -33,6 +34,7 @@ jobs:
                       version: 7
                       run_install: true
                 - run: pnpm run lint
+
         prettier:
             runs-on: ubuntu-latest
             steps:
