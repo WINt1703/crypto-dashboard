@@ -13,13 +13,13 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
     "eslint-config-custom": "workspace:*",
-    "prettier": "latest",
+    "prettier": "2.7.1",
     "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
   "packageManager": "pnpm@7.14.0"
 }
