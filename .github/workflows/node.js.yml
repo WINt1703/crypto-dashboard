@@ -1,0 +1,49 @@
+name: NodeCLI
+
+# This action works with pull requests and pushes
+on:
+    push:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '16.x'
+            - uses: pnpm/action-setup@v2.0.1
+              name: Install pnpm
+              with:
+                  version: 7
+                  run_install: true
+            - run: pnpm run build
+        eslint:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/checkout@v2
+                - name: Use Node.js
+                  uses: actions/setup-node@v2
+                  with:
+                      node-version: '16.x'
+                - uses: pnpm/action-setup@v2.0.1
+                  name: Install pnpm
+                  with:
+                      version: 7
+                      run_install: true
+                - run: pnpm run lint
+        prettier:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/checkout@v2
+                - name: Use Node.js
+                  uses: actions/setup-node@v1
+                  with:
+                      node-version: '16.x'
+                - uses: pnpm/action-setup@v2.0.1
+                  name: Install pnpm
+                  with:
+                      version: 7
+                      run_install: true
+                - run: pnpm run format:check
