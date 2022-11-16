@@ -12,8 +12,18 @@
     "@types/react-dom": "^18.0.6",
     "eslint": "^8.27.0",
     "eslint-config-custom": "workspace:*",
+    "prop-types": "^15.6.0",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@babel/core": "^7.0.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.14",
+    "@mui/material": "^5.10.14",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "recharts": "^2.1.16"
   }
 }
