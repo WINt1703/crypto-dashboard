@@ -3,4 +3,7 @@ module.exports = {
   experimental: {
     transpilePackages: ["ui"],
   },
+  images: {
+    domains: ['images.unsplash.com', "encrypted-tbn0.gstatic.com"],
+  },
 };
