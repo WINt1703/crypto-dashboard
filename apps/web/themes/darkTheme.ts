@@ -1,6 +1,9 @@
 import { createTheme } from '@mui/material'
 
 const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
   components: {
     MuiButtonBase: {
       defaultProps: {
@@ -20,6 +23,13 @@ const darkTheme = createTheme({
           '&:hover': {
             boxShadow: '0 0 10px 2px rgba(255,255,255,.24);',
           },
+        },
+      },
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background: '#181A25',
         },
       },
     },
