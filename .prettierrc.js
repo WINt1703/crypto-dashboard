@@ -1,9 +1,9 @@
 module.exports = {
     "printWidth": 80,
-    "tabWidth": 4,
+    "tabWidth": 2,
     "trailingComma": "all",
     "singleQuote": true,
-    "semi": false,    
+    "semi": false,
     "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
