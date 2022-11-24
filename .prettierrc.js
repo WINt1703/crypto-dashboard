@@ -4,7 +4,7 @@ module.exports = {
     "trailingComma": "all",
     "singleQuote": true,
     "semi": false,
-    "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+    "importOrder": ["^@core/(.*)$", "^@api/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
     "plugins": ['@trivago/prettier-plugin-sort-imports'],
