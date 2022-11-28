@@ -1,6 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {
-  Grid,
   MenuItem,
   Select,
   Stack,
@@ -14,8 +13,14 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
 interface CoinInputProps {
-  onChange?: (count: number, coin: CoinInformation) => void
+  defaultValue?: CoinInputField
+  onChange?: (value: CoinInputField) => void
   coins: Array<CoinInformation>
+}
+
+export interface CoinInputField {
+  count?: number
+  coin: CoinInformation
 }
 
 interface CoinInputForm {
@@ -25,7 +30,7 @@ interface CoinInputForm {
 
 const COIN_REGEX = /^\d{1,5}(\.\d{0,4})?$/
 
-const CoinInput: FC<CoinInputProps> = ({ coins, onChange }) => {
+const CoinInput: FC<CoinInputProps> = ({ coins, onChange, defaultValue }) => {
   const {
     formState: { errors },
     register,
@@ -34,7 +39,7 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange }) => {
   } = useForm<CoinInputForm>({
     mode: 'onChange',
     defaultValues: {
-      coinId: coins[0].id,
+      coinId: defaultValue?.coin.id ?? coins[0].id,
     },
   })
   const { coinId } = watch()
@@ -42,7 +47,7 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange }) => {
   const onChangeHandler = (data: CoinInputForm) => {
     const coin = coins.find((c) => c.id === data.coinId)
 
-    if (coin && onChange) onChange(+data.coinCount, coin)
+    if (coin && onChange) onChange({ coin, count: +data.coinCount })
   }
 
   const titleToolTip = (): JSX.Element | undefined => {
@@ -59,7 +64,7 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange }) => {
   }
 
   return (
-    <Grid>
+    <>
       <Tooltip arrow placement="bottom" title={titleToolTip()}>
         <Stack
           bgcolor="#151823"
@@ -75,6 +80,9 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange }) => {
               required: true,
               onChange: handleSubmit(onChangeHandler),
             })}
+            sx={{
+              flexGrow: 1,
+            }}
             placeholder="0"
           />
 
@@ -87,7 +95,7 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange }) => {
               },
             }}
             {...register('coinId', { required: true })}
-            defaultValue={coins[0].id}
+            defaultValue={defaultValue?.coin.id ?? coins[0].id}
             IconComponent={ExpandMoreIcon}
           >
             {coins.map((c) => (
@@ -107,7 +115,7 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange }) => {
           Incorrect coin count
         </Typography>
       )}
-    </Grid>
+    </>
   )
 }
 
