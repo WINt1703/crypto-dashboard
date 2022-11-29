@@ -1,5 +1,6 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {
+  Grid,
   MenuItem,
   Select,
   Stack,
@@ -9,13 +10,14 @@ import {
 } from '@mui/material'
 import { CoinInformation } from 'api/coingecko/models'
 import Image from 'next/image'
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 
 interface CoinInputProps {
-  defaultValue?: CoinInputField
+  value?: CoinInputField
   onChange?: (value: CoinInputField) => void
   coins: Array<CoinInformation>
+  excludesCoins?: Array<CoinInformation>
 }
 
 export interface CoinInputField {
@@ -24,47 +26,57 @@ export interface CoinInputField {
 }
 
 interface CoinInputForm {
-  coinCount: string
-  coinId: string
+  count: string
+  coinJson: string
 }
 
 const COIN_REGEX = /^\d{1,5}(\.\d{0,4})?$/
 
-const CoinInput: FC<CoinInputProps> = ({ coins, onChange, defaultValue }) => {
+const CoinInput: FC<CoinInputProps> = ({
+  coins,
+  onChange,
+  value,
+  excludesCoins,
+}) => {
+  const filteredCoins = useMemo(
+    () => coins.filter((c) => !excludesCoins?.some((ec) => ec.id === c.id)),
+    [coins, excludesCoins],
+  )
+
   const {
-    formState: { errors },
+    formState: { errors, defaultValues },
     register,
     handleSubmit,
     watch,
   } = useForm<CoinInputForm>({
     mode: 'onChange',
     defaultValues: {
-      coinId: defaultValue?.coin.id ?? coins[0].id,
+      coinJson: JSON.stringify(value?.coin ?? filteredCoins[0]),
     },
   })
-  const { coinId } = watch()
+  const { coinJson, count } = watch()
 
   const onChangeHandler = (data: CoinInputForm) => {
-    const coin = coins.find((c) => c.id === data.coinId)
-
-    if (coin && onChange) onChange({ coin, count: +data.coinCount })
+    if (data.coinJson && onChange)
+      onChange({
+        coin: JSON.parse(data.coinJson) as CoinInformation,
+        count: +data.count,
+      })
   }
 
   const titleToolTip = (): JSX.Element | undefined => {
-    const currentCoin = coins.find((c) => c.id === coinId)
+    const coin = JSON.parse(coinJson) as CoinInformation
 
     return (
-      currentCoin && (
-        <Typography fontSize="14px">
-          Name: {currentCoin.name} <br />
-          Price: {currentCoin.currentPrice} $
-        </Typography>
-      )
+      <Typography fontSize="14px">
+        Name: {coin.name} <br />
+        Price: {coin.currentPrice} $
+      </Typography>
     )
   }
 
   return (
-    <>
+    <Grid>
       <Tooltip arrow placement="bottom" title={titleToolTip()}>
         <Stack
           bgcolor="#151823"
@@ -75,9 +87,9 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange, defaultValue }) => {
           direction="row"
         >
           <TextField
-            {...register('coinCount', {
+            {...register('count', {
               pattern: COIN_REGEX,
-              required: true,
+              value: value?.count?.toString() ?? count,
               onChange: handleSubmit(onChangeHandler),
             })}
             sx={{
@@ -87,6 +99,18 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange, defaultValue }) => {
           />
 
           <Select
+            renderValue={(coinJson: string) => {
+              const coin = JSON.parse(coinJson) as CoinInformation
+
+              return (
+                <Image
+                  width={25}
+                  height={25}
+                  src={coin.image}
+                  alt={coin.name}
+                />
+              )
+            }}
             SelectDisplayProps={{
               style: {
                 display: 'flex',
@@ -94,15 +118,19 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange, defaultValue }) => {
                 marginRight: '20px',
               },
             }}
-            {...register('coinId', { required: true })}
-            defaultValue={defaultValue?.coin.id ?? coins[0].id}
+            {...register('coinJson', {
+              value: value?.coin ? JSON.stringify(value.coin) : coinJson,
+              required: true,
+              onChange: handleSubmit(onChangeHandler),
+            })}
+            defaultValue={defaultValues?.coinJson}
             IconComponent={ExpandMoreIcon}
           >
-            {coins.map((c) => (
+            {filteredCoins.map((c) => (
               <MenuItem
                 sx={{ justifyContent: 'center' }}
                 key={c.id}
-                value={c.id}
+                value={JSON.stringify(c)}
               >
                 <Image width={25} height={25} src={c.image} alt={c.name} />
               </MenuItem>
@@ -110,12 +138,12 @@ const CoinInput: FC<CoinInputProps> = ({ coins, onChange, defaultValue }) => {
           </Select>
         </Stack>
       </Tooltip>
-      {errors.coinCount && (
+      {errors.count && (
         <Typography fontSize="12px" color="red">
           Incorrect coin count
         </Typography>
       )}
-    </>
+    </Grid>
   )
 }
 
