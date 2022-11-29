@@ -1,4 +1,5 @@
-import { ArrowDropUp, ArrowRight } from '@mui/icons-material'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Grid, Icon, Stack, Typography } from '@mui/material'
 import { FC } from 'react'
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
@@ -53,9 +54,9 @@ export const CryptoCard: FC<CryptoCardProps> = ({
             }}
           >
             {diff > 0 ? (
-              <ArrowDropUp fontSize="small" />
+              <ArrowDropUpIcon fontSize="small" />
             ) : (
-              <ArrowRight fontSize="small" />
+              <ArrowRightIcon fontSize="small" />
             )}
           </Icon>
 
