@@ -10,7 +10,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.4.0",
@@ -21,5 +22,8 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "pnpm@7.9.5"
+  "packageManager": "pnpm@7.9.5",
+  "dependencies": {
+    "date-fns": "^2.29.3"
+  }
 }

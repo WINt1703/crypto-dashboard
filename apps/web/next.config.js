@@ -1,9 +1,8 @@
 module.exports = {
-  reactStrictMode: true,
   experimental: {
-    transpilePackages: ["ui"],
+    externalDir: true,
   },
   images: {
-    domains: ['images.unsplash.com', "encrypted-tbn0.gstatic.com"],
+    domains: ['images.unsplash.com', "encrypted-tbn0.gstatic.com", "assets.coingecko.com"],
   },
 };

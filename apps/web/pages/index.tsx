@@ -1,17 +1,54 @@
-import type { NextPage } from 'next'
-import { NftCard } from 'ui'
+import { Grid, Stack } from '@mui/material'
+import { getCoinChart, getCoinsMarkets } from 'api'
+import type { GetServerSideProps, NextPage } from 'next'
+import { CryptoCard, CryptoCardProps, ExchangeCard, ExchangeCardData } from 'ui'
 
-const Index: NextPage = () => {
+interface IndexProps {
+  exchangeCard: ExchangeCardData
+  cryptoCards: Array<CryptoCardProps>
+}
+
+export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
+  const coins = await getCoinsMarkets()
+  const topCoins = coins.slice(0, 4)
+
+  return {
+    props: {
+      exchangeCard: {
+        coins: JSON.parse(JSON.stringify(coins)),
+      },
+      cryptoCards: JSON.parse(
+        JSON.stringify(
+          await Promise.all(
+            topCoins.map<Promise<CryptoCardProps>>(async (c) => ({
+              coin: c,
+              coinChart: await getCoinChart(c.id),
+            })),
+          ),
+        ),
+      ),
+    },
+  }
+}
+
+const Index: NextPage<IndexProps> = ({ exchangeCard, cryptoCards }) => {
   return (
-    <NftCard
-      height="241px"
-      width="282px"
-      price={500}
-      nftName="Cool nft"
-      nftImg="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
-      author="Ala"
-      authorImg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJsI-A1jouXWhTiragizrRkXk7c9VdoFIaWHhngNjA&s"
-    />
+    <Stack direction="row">
+      <Grid width="65px" />
+      <Grid flexDirection="row" container padding={1}>
+        <Grid width="auto" container spacing={0.75} flexGrow={1} item>
+          {cryptoCards.map((c, index) => (
+            <Grid width="250px" height="120px" item key={index}>
+              <CryptoCard {...c} />
+            </Grid>
+          ))}
+        </Grid>
+
+        <Grid flexGrow={0} item>
+          <ExchangeCard data={exchangeCard} />
+        </Grid>
+      </Grid>
+    </Stack>
   )
 }
 
