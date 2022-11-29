@@ -1,7 +1,10 @@
 import axios from 'axios'
+import { format } from 'date-fns'
 import { camelizeKeys } from 'humps'
 
-import { CoinInformation, Currency } from './models'
+import { CoinChart, CoinInformation, Currency } from './models'
+
+const CURRENCY: Currency = Currency.Usd
 
 const coinGeckoInstance = axios.create({
   baseURL: 'https://api.coingecko.com/api/v3/',
@@ -17,16 +20,26 @@ coinGeckoInstance.interceptors.response.use((response) => {
   return response
 })
 
-export async function getCoinsMarkets(
-  currency: Currency = Currency.Usd,
-): Promise<Array<CoinInformation>> {
+export async function getCoinsMarkets(): Promise<Array<CoinInformation>> {
   return await coinGeckoInstance
     .get('coins/markets', {
       params: {
-        vs_currency: currency,
+        vs_currency: CURRENCY,
         order: 'market_cap_desc',
         per_page: '25',
       },
     })
     .then((response) => response.data as Array<CoinInformation>)
+}
+
+export async function getCoinChart(coinId: string): Promise<CoinChart> {
+  return await coinGeckoInstance
+    .get(`/coins/${coinId}/market_chart`, {
+      params: {
+        vs_currency: CURRENCY,
+        interval: 'interval',
+        days: format(new Date(), 'dd-MM-yyyy'),
+      },
+    })
+    .then((response) => response.data as CoinChart)
 }

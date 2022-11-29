@@ -10,10 +10,10 @@ export interface CoinInformation {
   totalVolume: number
   high24H: number
   low24H: number
-  priceChange24H: number
-  priceChangePercentage24H: number
-  marketCapChange24H: number
-  marketCapChangePercentage24H: number
+  priceChange24h: number
+  priceChangePercentage24h: number
+  marketCapChange24h: number
+  marketCapChangePercentage24h: number
   circulatingSupply: number
   totalSupply: number | null
   maxSupply: number | null
@@ -37,4 +37,10 @@ export enum Currency {
   Btc = 'btc',
   Eth = 'eth',
   Usd = 'usd',
+}
+
+export interface CoinChart {
+  prices: Array<number[]>
+  marketCaps: Array<number[]>
+  totalVolumes: Array<number[]>
 }
