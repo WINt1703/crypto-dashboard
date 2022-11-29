@@ -1,11 +1,10 @@
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Grid, Icon, Stack, Tooltip, Typography } from '@mui/material'
+import { CoinChart, CoinInformation } from 'api/coingecko/models'
 import Image from 'next/image'
 import { FC } from 'react'
 import { Area, AreaChart, ResponsiveContainer, YAxis } from 'recharts'
-
-import { CoinChart, CoinInformation } from '../api/coingecko/models'
 
 export interface CryptoCardProps {
   coin: CoinInformation
@@ -16,8 +15,6 @@ export const CryptoCard: FC<CryptoCardProps> = ({ coin, coinChart }) => {
   const colorDiff = coin.priceChangePercentage24h > 0 ? '#22D49F' : '#FF5B6D'
   const strokeArea = coin.priceChangePercentage24h > 0 ? '#4AC49E' : '#FF5668'
   const fillArea = coin.priceChangePercentage24h > 0 ? '#40a484' : '#d34553'
-
-  console.log(coin)
 
   return (
     <Grid
