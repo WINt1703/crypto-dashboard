@@ -8,7 +8,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { CoinInformation } from 'api/coingecko/models'
+import { CoinInformation } from 'apis/coingecko/models'
 import Image from 'next/image'
 import { FC, useMemo } from 'react'
 import { useForm } from 'react-hook-form'

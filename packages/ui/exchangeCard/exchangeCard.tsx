@@ -1,6 +1,6 @@
 import SwapVertIcon from '@mui/icons-material/SwapVert'
 import { Button, Card, Grid, Stack, Typography } from '@mui/material'
-import { CoinInformation } from 'api/coingecko/models'
+import { CoinInformation } from 'apis/coingecko/models'
 import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 

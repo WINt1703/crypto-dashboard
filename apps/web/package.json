@@ -16,7 +16,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "ui": "workspace:*",
-    "api": "workspace:*"
+    "apis": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
