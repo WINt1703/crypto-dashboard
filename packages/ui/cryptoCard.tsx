@@ -1,7 +1,7 @@
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Grid, Icon, Stack, Tooltip, Typography } from '@mui/material'
-import { CoinChart, CoinInformation } from 'api/coingecko/models'
+import { CoinChart, CoinInformation } from 'apis/coingecko/models'
 import Image from 'next/image'
 import { FC } from 'react'
 import { Area, AreaChart, ResponsiveContainer, YAxis } from 'recharts'

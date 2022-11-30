@@ -1,5 +1,5 @@
 import { Grid, Stack } from '@mui/material'
-import { getCoinChart, getCoinsMarkets } from 'api'
+import { getCoinChart, getCoinsMarkets } from 'apis/coingecko/api'
 import type { GetServerSideProps, NextPage } from 'next'
 import { CryptoCard, CryptoCardProps, ExchangeCard, ExchangeCardData } from 'ui'
 

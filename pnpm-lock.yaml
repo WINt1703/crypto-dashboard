@@ -26,7 +26,7 @@ importers:
       '@types/node': ^17.0.12
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
-      api: workspace:*
+      apis: workspace:*
       eslint: 8.27.0
       eslint-config-custom: workspace:*
       next: 13.0.0
@@ -39,7 +39,7 @@ importers:
       '@emotion/react': 11.10.5_cuziicjcvwawlf5iuhzacuhqcy
       '@emotion/styled': 11.10.5_hmjty4frusbltjhl3xd7udcm2y
       '@mui/material': 5.10.14_thp4wrxo45nyllusrnt46mid4u
-      api: link:../../packages/api
+      apis: link:../../packages/apis
       next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -54,7 +54,7 @@ importers:
       tsconfig: link:../../packages/tsconfig
       typescript: 4.9.3
 
-  packages/api:
+  packages/apis:
     specifiers:
       '@types/humps': ^2.0.2
       axios: ^1.2.0
@@ -114,7 +114,7 @@ importers:
       '@mui/material': ^5.10.14
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
-      api: workspace:*
+      apis: workspace:*
       eslint: ^8.27.0
       eslint-config-custom: workspace:*
       next: 13.0.0
@@ -138,7 +138,7 @@ importers:
       '@babel/core': 7.20.2
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
-      api: link:../api
+      apis: link:../apis
       eslint: 8.27.0
       eslint-config-custom: link:../eslint-config-custom
       next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
